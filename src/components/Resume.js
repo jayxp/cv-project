@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Sections() {
+export default function Resume() {
   return null;
 }
