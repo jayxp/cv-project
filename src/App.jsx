@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import uniqid from "uniqid";
 
-const userData = {
+const headerData = {
   email: {
     text: "",
     name: "email",
@@ -38,10 +39,48 @@ const userData = {
   },
 };
 
+const educationData = {
+  eduList: [],
+  location: {
+    text: "",
+    name: "",
+    type: "text",
+    description: "",
+    example: "",
+  },
+  college: {
+    text: "",
+    name: "",
+    type: "text",
+    description: "",
+    example: "",
+  },
+  date: {
+    text: "",
+    name: "",
+    type: "text",
+    description: "",
+    example: "",
+  },
+  degree: {
+    text: "",
+    name: "",
+    type: "text",
+    description: "",
+    example: "",
+  },
+};
+
+const employmentData = {};
+
+const projectData = {};
+
+const technicalData = {};
+
 const Input = (props) => {
   const { text, name, type, description, example } = props.data;
 
-  const handleChange = (e) => props.onChange(e);
+  const handleChange = (event) => props.onChange(event);
 
   return (
     <>
@@ -98,13 +137,7 @@ function HeaderCategoryRow(props) {
 }
 
 function EducationCategoryRow() {
-  const [listing, setListing] = useState({
-    location: "City, State",
-    college: "University",
-    date: "From -- To",
-    degree: "Degree",
-    gpa: "GPA",
-  });
+  const [listing, setListing] = useState({});
 
   return (
     <div>
@@ -114,7 +147,6 @@ function EducationCategoryRow() {
       <p>{listing.college}</p>
       <p>{listing.date}</p>
       <p>{listing.degree}</p>
-      <p>{listing.gpa}</p>
     </div>
   );
 }
@@ -176,7 +208,7 @@ function TechnicalCategoryRow() {
 export default function App() {
   return (
     <div>
-      <HeaderCategoryRow {...userData} />
+      <HeaderCategoryRow {...headerData} />
       <EducationCategoryRow />
       <EmploymentCategoryRow />
       <ProjectCategoryRow />
