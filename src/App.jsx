@@ -51,7 +51,7 @@ const headerData = {
     name: "github",
     type: "text",
     description: "Github Handle",
-    example: "jayxp",
+    example: "username",
   },
 };
 
@@ -197,7 +197,7 @@ const Input = (props) => {
   );
 };
 
-function HeaderCategoryRow(props) {
+function HeaderCategory(props) {
   const { data } = props;
   const { email, phone, name, website, github } = data;
   const [entry, setEntry] = useState({
@@ -242,7 +242,7 @@ function HeaderCategoryRow(props) {
   );
 }
 
-function EducationCategoryRow(props) {
+function EducationCategory(props) {
   const { data } = props;
   const { eduList, id, location, college, dateFrom, dateTo, degree } = data;
   const [entry, setEntry] = useState({
@@ -264,6 +264,7 @@ function EducationCategoryRow(props) {
 
   function handleChange(event) {
     setEntry((prevState) => {
+      console.log(prevState);
       return {
         ...prevState,
         [event.target.name]: {
@@ -318,7 +319,7 @@ function EducationCategoryRow(props) {
   );
 }
 
-function EmploymentCategoryRow(props) {
+function EmploymentCategory(props) {
   const { data } = props;
   const { employmentList, id, job, company, dateFrom, dateTo, tasks } = data;
   const [entry, setEntry] = useState({
@@ -362,7 +363,7 @@ function EmploymentCategoryRow(props) {
   );
 }
 
-function ProjectCategoryRow(props) {
+function ProjectCategory(props) {
   const { data } = props;
   const { projectList, id, pName, link, details } = data;
   const [entry, setEntry] = useState({ id, pName, link, details });
@@ -395,7 +396,7 @@ function ProjectCategoryRow(props) {
   );
 }
 
-function TechnicalCategoryRow(props) {
+function TechnicalCategory(props) {
   const { data } = props;
   const { languages, frameLibs, tools } = data;
   const [entry, setEntry] = useState({ languages, frameLibs, tools });
@@ -438,11 +439,11 @@ function TechnicalCategoryRow(props) {
 export default function App() {
   return (
     <div>
-      <HeaderCategoryRow data={headerData} />
-      <EducationCategoryRow data={educationData} />
-      <EmploymentCategoryRow data={employmentData} />
-      <ProjectCategoryRow data={projectData} />
-      <TechnicalCategoryRow data={technicalData} />
+      <HeaderCategory data={headerData} />
+      <EducationCategory data={educationData} />
+      <EmploymentCategory data={employmentData} />
+      <ProjectCategory data={projectData} />
+      <TechnicalCategory data={technicalData} />
     </div>
   );
 }
