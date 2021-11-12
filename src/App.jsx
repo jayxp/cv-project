@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import uniqid from "uniqid";
 
 /* 
 ============ TO DO ============
-[] Add submit handler to remaining components
+[x] Add submit handler to remaining components
 [] Add deletion logic for appropriate components
 [] Add edit logic to all components
 [] Create sub-list logic for appropriate components
@@ -97,7 +97,7 @@ const educationData = {
 };
 
 const employmentData = {
-  employmentList: [],
+  empList: [],
   id: uniqid(),
   job: {
     text: "",
@@ -127,7 +127,14 @@ const employmentData = {
     description: "Date To",
     example: "2020-08",
   },
-  tasks: [],
+  details: [],
+  detailInput: {
+    text: "",
+    name: "detailInput",
+    type: "text",
+    description: "Details",
+    example: "Regular standups, sprints, ...",
+  },
 };
 
 const projectData = {
@@ -148,6 +155,13 @@ const projectData = {
     example: "https://github.com/user/link",
   },
   details: [],
+  detailInput: {
+    text: "",
+    name: "detailInput",
+    type: "text",
+    description: "Details",
+    example: "XYZ",
+  },
 };
 
 const technicalData = {
@@ -300,7 +314,7 @@ function EducationCategory(props) {
         <Input data={entry.degree} onChange={handleChange} />
         <br />
         <br />
-        <button type="submit">Add</button>
+        <button type="submit">Submit</button>
         <br />
       </form>
       {list.eduList.length > 0 &&
@@ -321,22 +335,25 @@ function EducationCategory(props) {
 
 function EmploymentCategory(props) {
   const { data } = props;
-  const { employmentList, id, job, company, dateFrom, dateTo, tasks } = data;
-  const [list, setList] = useState({ employmentList });
+  const { empList, id, job, company, dateFrom, dateTo, details, detailInput } =
+    data;
+  const [list, setList] = useState({ empList });
   const [entry, setEntry] = useState({
     id,
     job,
     company,
     dateFrom,
     dateTo,
-    tasks,
+    details,
+    detailInput,
   });
   const initial = useRef({
     job,
     company,
     dateFrom,
     dateTo,
-    tasks,
+    details,
+    detailInput,
   });
 
   function handleChange(event) {
@@ -351,16 +368,27 @@ function EmploymentCategory(props) {
     });
   }
 
-  /* REWRITE THIS */
+  function addTask() {
+    setEntry((prevState) => {
+      return {
+        ...prevState,
+        details: prevState.details.concat({
+          id: uniqid(),
+          ...entry.detailInput,
+        }),
+        detailInput: { ...initial.current.detailInput },
+      };
+    });
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    setList({ employmentList: list.employmentList.concat(entry) });
+    setList({ empList: list.empList.concat(entry) });
     setEntry({
       id: uniqid(),
       ...initial.current,
+      details: [],
     });
-    console.log(list);
-    console.log(entry);
   }
 
   return (
@@ -376,11 +404,24 @@ function EmploymentCategory(props) {
         <br />
         <Input data={entry.dateTo} onChange={handleChange} />
         <br />
+        <Input data={entry.detailInput} onChange={handleChange} />{" "}
+        <button type="button" onClick={addTask}>
+          Add
+        </button>
         <br />
-        <button type="submit">Add</button>
+        {entry.details.length > 0 &&
+          entry.details.map((e) => {
+            return (
+              <div key={e.id}>
+                <p>{e.text}</p>
+              </div>
+            );
+          })}
+        <br />
+        <button type="submit">Submit</button>
       </form>
-      {list.employmentList.length > 0 &&
-        list.employmentList.map((e) => {
+      {list.empList.length > 0 &&
+        list.empList.map((e) => {
           return (
             <div key={e.id}>
               <p>{e.job.text}</p>
@@ -396,10 +437,10 @@ function EmploymentCategory(props) {
 
 function ProjectCategory(props) {
   const { data } = props;
-  const { projectList, id, pName, link, details } = data;
+  const { projectList, id, pName, link, details, detailInput } = data;
   const [list, setList] = useState({ projectList });
-  const [entry, setEntry] = useState({ id, pName, link, details });
-  const initial = useRef({ pName, link, details });
+  const [entry, setEntry] = useState({ id, pName, link, details, detailInput });
+  const initial = useRef({ pName, link, details, detailInput });
 
   function handleChange(event) {
     setEntry((prevState) => {
@@ -421,8 +462,19 @@ function ProjectCategory(props) {
       id: uniqid(),
       ...initial.current,
     });
-    console.log(list);
-    console.log(entry);
+  }
+
+  function addTask() {
+    setEntry((prevState) => {
+      return {
+        ...prevState,
+        details: prevState.details.concat({
+          id: uniqid(),
+          ...entry.detailInput,
+        }),
+        detailInput: { ...initial.current.detailInput },
+      };
+    });
   }
 
   return (
@@ -434,8 +486,21 @@ function ProjectCategory(props) {
         <br />
         <Input data={entry.link} onChange={handleChange} />
         <br />
+        <Input data={entry.detailInput} onChange={handleChange} />{" "}
+        <button type="button" onClick={addTask}>
+          Add
+        </button>
         <br />
-        <button type="submit">Add</button>
+        {entry.details.length > 0 &&
+          entry.details.map((e) => {
+            return (
+              <div key={e.id}>
+                <p>{e.text}</p>
+              </div>
+            );
+          })}
+        <br />
+        <button type="submit">Submit</button>
       </form>
       {list.projectList.length > 0 &&
         list.projectList.map((e) => {
