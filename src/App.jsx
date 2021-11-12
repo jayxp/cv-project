@@ -469,7 +469,7 @@ function TechnicalCategory(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setEntry({ edit: false });
+    setEntry({});
   }
 
   return (
