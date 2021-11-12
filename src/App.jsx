@@ -15,6 +15,7 @@ import uniqid from "uniqid";
 - Think of a better variable name than list, confusing when accessing array indices
 - disable eslint prop validation & function binding rules
 - Reactstrap or Styled Components? Research
+- May need to add a parent component to contain category components for PDF export
 */
 
 const headerData = {
@@ -245,6 +246,7 @@ function HeaderCategory(props) {
 function EducationCategory(props) {
   const { data } = props;
   const { eduList, id, location, college, dateFrom, dateTo, degree } = data;
+  const [list, setList] = useState({ eduList });
   const [entry, setEntry] = useState({
     id,
     location,
@@ -253,8 +255,7 @@ function EducationCategory(props) {
     dateTo,
     degree,
   });
-  const [list, setList] = useState({ eduList });
-  const initialEntry = useRef({
+  const initial = useRef({
     location,
     college,
     dateFrom,
@@ -264,7 +265,6 @@ function EducationCategory(props) {
 
   function handleChange(event) {
     setEntry((prevState) => {
-      console.log(prevState);
       return {
         ...prevState,
         [event.target.name]: {
@@ -280,7 +280,7 @@ function EducationCategory(props) {
     setList({ eduList: list.eduList.concat(entry) });
     setEntry({
       id: uniqid(),
-      ...initialEntry.current,
+      ...initial.current,
     });
   }
 
@@ -300,7 +300,7 @@ function EducationCategory(props) {
         <Input data={entry.degree} onChange={handleChange} />
         <br />
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit">Add</button>
         <br />
       </form>
       {list.eduList.length > 0 &&
@@ -322,8 +322,16 @@ function EducationCategory(props) {
 function EmploymentCategory(props) {
   const { data } = props;
   const { employmentList, id, job, company, dateFrom, dateTo, tasks } = data;
+  const [list, setList] = useState({ employmentList });
   const [entry, setEntry] = useState({
     id,
+    job,
+    company,
+    dateFrom,
+    dateTo,
+    tasks,
+  });
+  const initial = useRef({
     job,
     company,
     dateFrom,
@@ -343,30 +351,55 @@ function EmploymentCategory(props) {
     });
   }
 
+  /* REWRITE THIS */
   function handleSubmit(event) {
     event.preventDefault();
-    setEntry({ edit: false });
+    setList({ employmentList: list.employmentList.concat(entry) });
+    setEntry({
+      id: uniqid(),
+      ...initial.current,
+    });
+    console.log(list);
+    console.log(entry);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Employment</h2>
-      <hr />
-      <Input data={entry.job} onChange={handleChange} />
-      <br />
-      <Input data={entry.company} onChange={handleChange} />
-      <br />
-      <Input data={entry.dateFrom} onChange={handleChange} />
-      <br />
-      <Input data={entry.dateTo} onChange={handleChange} />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h2>Employment</h2>
+        <hr />
+        <Input data={entry.job} onChange={handleChange} />
+        <br />
+        <Input data={entry.company} onChange={handleChange} />
+        <br />
+        <Input data={entry.dateFrom} onChange={handleChange} />
+        <br />
+        <Input data={entry.dateTo} onChange={handleChange} />
+        <br />
+        <br />
+        <button type="submit">Add</button>
+      </form>
+      {list.employmentList.length > 0 &&
+        list.employmentList.map((e) => {
+          return (
+            <div key={e.id}>
+              <p>{e.job.text}</p>
+              <p>{e.company.text}</p>
+              <p>{e.dateFrom.text}</p>
+              <p>{e.dateTo.text}</p>
+            </div>
+          );
+        })}
+    </>
   );
 }
 
 function ProjectCategory(props) {
   const { data } = props;
   const { projectList, id, pName, link, details } = data;
+  const [list, setList] = useState({ projectList });
   const [entry, setEntry] = useState({ id, pName, link, details });
+  const initial = useRef({ pName, link, details });
 
   function handleChange(event) {
     setEntry((prevState) => {
@@ -380,19 +413,40 @@ function ProjectCategory(props) {
     });
   }
 
+  /* REWRITE THIS */
   function handleSubmit(event) {
     event.preventDefault();
-    setEntry({ edit: false });
+    setList({ projectList: list.projectList.concat(entry) });
+    setEntry({
+      id: uniqid(),
+      ...initial.current,
+    });
+    console.log(list);
+    console.log(entry);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Projects</h2>
-      <hr />
-      <Input data={entry.pName} onChange={handleChange} />
-      <br />
-      <Input data={entry.link} onChange={handleChange} />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h2>Projects</h2>
+        <hr />
+        <Input data={entry.pName} onChange={handleChange} />
+        <br />
+        <Input data={entry.link} onChange={handleChange} />
+        <br />
+        <br />
+        <button type="submit">Add</button>
+      </form>
+      {list.projectList.length > 0 &&
+        list.projectList.map((e) => {
+          return (
+            <div key={e.id}>
+              <p>{e.pName.text}</p>
+              <p>{e.link.text}</p>
+            </div>
+          );
+        })}
+    </>
   );
 }
 
