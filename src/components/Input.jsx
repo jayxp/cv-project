@@ -7,12 +7,8 @@ const Input = (props) => {
 
   return (
     <>
-      {description !== "" && (
-        <>
-          <label htmlFor={text}>{description}</label>
-          <br />
-        </>
-      )}
+      <label htmlFor={text}>{description}</label>
+      <br />
       <input
         value={text}
         name={name}
