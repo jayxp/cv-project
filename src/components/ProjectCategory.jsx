@@ -8,7 +8,7 @@ export default function ProjectCategory(props) {
   const [list, setList] = useState({ store });
   const [entry, setEntry] = useState({ id, pName, link, details, detailInput });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -18,18 +18,18 @@ export default function ProjectCategory(props) {
         },
       };
     });
-  }
+  };
 
-  function handleSubmitExt(event) {
+  const handleSubmitExt = (event) => {
     event.preventDefault();
     setList({ store: list.store.concat(entry) });
     setEntry({
       id: uniqid(),
       ...data,
     });
-  }
+  };
 
-  function addDetail() {
+  const addDetail = () => {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -40,7 +40,7 @@ export default function ProjectCategory(props) {
         detailInput: { ...detailInput },
       };
     });
-  }
+  };
 
   return (
     <>

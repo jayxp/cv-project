@@ -7,7 +7,7 @@ export default function TechnicalCategory(props) {
   const [list, setList] = useState({ display: false });
   const [entry, setEntry] = useState({ languages, frameLibs, tools });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -17,9 +17,9 @@ export default function TechnicalCategory(props) {
         },
       };
     });
-  }
+  };
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setList({
       display: true,
@@ -28,23 +28,20 @@ export default function TechnicalCategory(props) {
     setEntry({
       ...data,
     });
-  }
+  };
 
   return (
     <>
       <h2>Technical Skills</h2>
       <hr />
       <form onSubmit={handleSubmit}>
-        <p>
-          Languages: <Input data={entry.languages} onChange={handleChange} />
-        </p>
-        <p>
-          Frameworks and Libraries:{" "}
-          <Input data={entry.frameLibs} onChange={handleChange} />
-        </p>
-        <p>
-          Tools: <Input data={entry.tools} onChange={handleChange} />
-        </p>
+        <Input data={entry.languages} onChange={handleChange} />
+        <br />
+        <Input data={entry.frameLibs} onChange={handleChange} />
+        <br />
+        <Input data={entry.tools} onChange={handleChange} />
+        <br />
+        <br />
         <button type="submit">Submit</button>
       </form>
       {list.display === true && (

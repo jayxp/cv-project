@@ -15,7 +15,7 @@ export default function EducationCategory(props) {
     degree,
   });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -25,18 +25,18 @@ export default function EducationCategory(props) {
         },
       };
     });
-  }
+  };
 
-  function handleSubmitExt(event) {
+  const handleSubmitExt = (event) => {
     event.preventDefault();
     setList({ store: list.store.concat(entry) });
     setEntry({
       id: uniqid(),
       ...data,
     });
-  }
+  };
 
-  function deleteEntry(prop) {
+  const deleteEntry = (prop) => {
     const newList = [...list.store];
 
     newList.splice(
@@ -47,7 +47,7 @@ export default function EducationCategory(props) {
     setList({
       store: [...newList],
     });
-  }
+  };
 
   return (
     <>

@@ -13,7 +13,7 @@ export default function HeaderCategory(props) {
     github,
   });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -23,9 +23,9 @@ export default function HeaderCategory(props) {
         },
       };
     });
-  }
+  };
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setList({
       display: true,
@@ -34,7 +34,7 @@ export default function HeaderCategory(props) {
     setEntry({
       ...data,
     });
-  }
+  };
 
   return (
     <>
