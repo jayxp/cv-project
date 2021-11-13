@@ -138,7 +138,7 @@ const employmentData = {
 };
 
 const projectData = {
-  projectList: [],
+  proList: [],
   id: uniqid(),
   pName: {
     text: "",
@@ -215,6 +215,7 @@ const Input = (props) => {
 function HeaderCategory(props) {
   const { data } = props;
   const { email, phone, name, website, github } = data;
+  const [list, setList] = useState({ display: false });
   const [entry, setEntry] = useState({
     email,
     phone,
@@ -222,6 +223,14 @@ function HeaderCategory(props) {
     website,
     github,
   });
+  const initial = useRef({
+    email,
+    phone,
+    name,
+    website,
+    github,
+  });
+  useEffect(() => console.log(list));
 
   function handleChange(event) {
     setEntry((prevState) => {
@@ -237,12 +246,18 @@ function HeaderCategory(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setEntry({ edit: false });
+    setList({
+      display: true,
+      ...entry,
+    });
+    setEntry({
+      ...initial.current,
+    });
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Input data={entry.email} onChange={handleChange} />
         <br />
         <Input data={entry.phone} onChange={handleChange} />
@@ -252,7 +267,21 @@ function HeaderCategory(props) {
         <Input data={entry.website} onChange={handleChange} />
         <br />
         <Input data={entry.github} onChange={handleChange} />
+        <br />
+        <br />
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </form>
+      {list.display === true && (
+        <>
+          <p>{list.email.text}</p>
+          <p>{list.phone.text}</p>
+          <p>{list.name.text}</p>
+          <p>{list.website.text}</p>
+          <p>{list.github.text}</p>
+        </>
+      )}
     </>
   );
 }
@@ -428,6 +457,16 @@ function EmploymentCategory(props) {
               <p>{e.company.text}</p>
               <p>{e.dateFrom.text}</p>
               <p>{e.dateTo.text}</p>
+              {e.details.length > 0 &&
+                e.details.map((test) => {
+                  return (
+                    <div key={test.id}>
+                      <ul>
+                        <li>{test.text}</li>
+                      </ul>
+                    </div>
+                  );
+                })}
             </div>
           );
         })}
@@ -437,8 +476,8 @@ function EmploymentCategory(props) {
 
 function ProjectCategory(props) {
   const { data } = props;
-  const { projectList, id, pName, link, details, detailInput } = data;
-  const [list, setList] = useState({ projectList });
+  const { proList, id, pName, link, details, detailInput } = data;
+  const [list, setList] = useState({ proList });
   const [entry, setEntry] = useState({ id, pName, link, details, detailInput });
   const initial = useRef({ pName, link, details, detailInput });
 
@@ -457,7 +496,7 @@ function ProjectCategory(props) {
   /* REWRITE THIS */
   function handleSubmit(event) {
     event.preventDefault();
-    setList({ projectList: list.projectList.concat(entry) });
+    setList({ proList: list.proList.concat(entry) });
     setEntry({
       id: uniqid(),
       ...initial.current,
@@ -502,12 +541,22 @@ function ProjectCategory(props) {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {list.projectList.length > 0 &&
-        list.projectList.map((e) => {
+      {list.proList.length > 0 &&
+        list.proList.map((e) => {
           return (
             <div key={e.id}>
               <p>{e.pName.text}</p>
               <p>{e.link.text}</p>
+              {e.details.length > 0 &&
+                e.details.map((test) => {
+                  return (
+                    <div key={test.id}>
+                      <ul>
+                        <li>{test.text}</li>
+                      </ul>
+                    </div>
+                  );
+                })}
             </div>
           );
         })}
@@ -518,7 +567,9 @@ function ProjectCategory(props) {
 function TechnicalCategory(props) {
   const { data } = props;
   const { languages, frameLibs, tools } = data;
+  const [list, setList] = useState({ display: false });
   const [entry, setEntry] = useState({ languages, frameLibs, tools });
+  const initial = useRef({ languages, frameLibs, tools });
 
   function handleChange(event) {
     setEntry((prevState) => {
@@ -534,24 +585,40 @@ function TechnicalCategory(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setEntry({});
+    setList({
+      display: true,
+      ...entry,
+    });
+    setEntry({
+      ...initial.current,
+    });
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Technical Skills</h2>
-      <hr />
-      <p>
-        Languages: <Input data={entry.languages} onChange={handleChange} />
-      </p>
-      <p>
-        Frameworks and Libraries:{" "}
-        <Input data={entry.frameLibs} onChange={handleChange} />
-      </p>
-      <p>
-        Tools: <Input data={entry.tools} onChange={handleChange} />
-      </p>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h2>Technical Skills</h2>
+        <hr />
+        <p>
+          Languages: <Input data={entry.languages} onChange={handleChange} />
+        </p>
+        <p>
+          Frameworks and Libraries:{" "}
+          <Input data={entry.frameLibs} onChange={handleChange} />
+        </p>
+        <p>
+          Tools: <Input data={entry.tools} onChange={handleChange} />
+        </p>
+        <button type="submit">Submit</button>
+      </form>
+      {list.display === true && (
+        <>
+          <p>Languages: {list.languages.text}</p>
+          <p>Frameworks and Libraries: {list.frameLibs.text}</p>
+          <p>Tools: {list.tools.text}</p>
+        </>
+      )}
+    </>
   );
 }
 
