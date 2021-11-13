@@ -39,7 +39,7 @@ const headerData = {
 };
 
 const educationData = {
-  eduList: [],
+  store: [],
   id: uniqid(),
   location: {
     text: "",
@@ -79,7 +79,7 @@ const educationData = {
 };
 
 const employmentData = {
-  empList: [],
+  store: [],
   id: uniqid(),
   job: {
     text: "",
@@ -120,7 +120,7 @@ const employmentData = {
 };
 
 const projectData = {
-  proList: [],
+  store: [],
   id: uniqid(),
   pName: {
     text: "",

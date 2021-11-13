@@ -4,8 +4,8 @@ import Input from "./Input";
 
 export default function EducationCategory(props) {
   const { data } = props;
-  const { eduList, id, location, college, dateFrom, dateTo, degree } = data;
-  const [list, setList] = useState({ eduList });
+  const { store, id, location, college, dateFrom, dateTo, degree } = data;
+  const [list, setList] = useState({ store });
   const [entry, setEntry] = useState({
     id,
     location,
@@ -29,7 +29,7 @@ export default function EducationCategory(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setList({ eduList: list.eduList.concat(entry) });
+    setList({ store: list.store.concat(entry) });
     setEntry({
       id: uniqid(),
       ...data,
@@ -37,7 +37,7 @@ export default function EducationCategory(props) {
   }
 
   function deleteEntry(prop) {
-    const newList = [...list.eduList];
+    const newList = [...list.store];
 
     newList.splice(
       newList.findIndex((element) => element.id === prop.id),
@@ -66,8 +66,8 @@ export default function EducationCategory(props) {
         <button type="submit">Submit</button>
         <br />
       </form>
-      {list.eduList.length > 0 &&
-        list.eduList.map((element) => {
+      {list.store.length > 0 &&
+        list.store.map((element) => {
           return (
             <div key={element.id}>
               <p>{element.location.text}</p>

@@ -4,9 +4,9 @@ import Input from "./Input";
 
 export default function EmploymentCategory(props) {
   const { data } = props;
-  const { empList, id, job, company, dateFrom, dateTo, details, detailInput } =
+  const { store, id, job, company, dateFrom, dateTo, details, detailInput } =
     data;
-  const [list, setList] = useState({ empList });
+  const [list, setList] = useState({ store });
   const [entry, setEntry] = useState({
     id,
     job,
@@ -44,7 +44,7 @@ export default function EmploymentCategory(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setList({ empList: list.empList.concat(entry) });
+    setList({ store: list.store.concat(entry) });
     setEntry({
       id: uniqid(),
       details: [],
@@ -81,8 +81,8 @@ export default function EmploymentCategory(props) {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {list.empList.length > 0 &&
-        list.empList.map((element) => {
+      {list.store.length > 0 &&
+        list.store.map((element) => {
           return (
             <div key={element.id}>
               <p>{element.job.text}</p>

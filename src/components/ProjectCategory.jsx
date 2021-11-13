@@ -4,8 +4,8 @@ import Input from "./Input";
 
 export default function ProjectCategory(props) {
   const { data } = props;
-  const { proList, id, pName, link, details, detailInput } = data;
-  const [list, setList] = useState({ proList });
+  const { store, id, pName, link, details, detailInput } = data;
+  const [list, setList] = useState({ store });
   const [entry, setEntry] = useState({ id, pName, link, details, detailInput });
 
   function handleChange(event) {
@@ -22,7 +22,7 @@ export default function ProjectCategory(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setList({ proList: list.proList.concat(entry) });
+    setList({ store: list.store.concat(entry) });
     setEntry({
       id: uniqid(),
       ...data,
@@ -67,8 +67,8 @@ export default function ProjectCategory(props) {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {list.proList.length > 0 &&
-        list.proList.map((element) => {
+      {list.store.length > 0 &&
+        list.store.map((element) => {
           return (
             <div key={element.id}>
               <p>{element.pName.text}</p>
