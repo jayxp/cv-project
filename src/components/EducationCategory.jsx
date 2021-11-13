@@ -27,7 +27,7 @@ export default function EducationCategory(props) {
     });
   }
 
-  function handleSubmit(event) {
+  function handleSubmitExt(event) {
     event.preventDefault();
     setList({ store: list.store.concat(entry) });
     setEntry({
@@ -44,14 +44,16 @@ export default function EducationCategory(props) {
       1
     );
 
-    setList({});
+    setList({
+      store: [...newList],
+    });
   }
 
   return (
     <>
       <h2>Education</h2>
       <hr />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitExt}>
         <Input data={entry.location} onChange={handleChange} />
         <br />
         <Input data={entry.college} onChange={handleChange} />

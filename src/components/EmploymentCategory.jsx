@@ -29,6 +29,15 @@ export default function EmploymentCategory(props) {
     });
   }
 
+  function handleSubmitExt(event) {
+    event.preventDefault();
+    setList({ store: list.store.concat(entry) });
+    setEntry({
+      id: uniqid(),
+      ...data,
+    });
+  }
+
   function addDetail() {
     setEntry((prevState) => {
       return {
@@ -42,21 +51,11 @@ export default function EmploymentCategory(props) {
     });
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    setList({ store: list.store.concat(entry) });
-    setEntry({
-      id: uniqid(),
-      details: [],
-      ...data,
-    });
-  }
-
   return (
     <>
       <h2>Employment</h2>
       <hr />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitExt}>
         <Input data={entry.job} onChange={handleChange} />
         <br />
         <Input data={entry.company} onChange={handleChange} />

@@ -20,7 +20,7 @@ export default function ProjectCategory(props) {
     });
   }
 
-  function handleSubmit(event) {
+  function handleSubmitExt(event) {
     event.preventDefault();
     setList({ store: list.store.concat(entry) });
     setEntry({
@@ -46,7 +46,7 @@ export default function ProjectCategory(props) {
     <>
       <h2>Projects</h2>
       <hr />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitExt}>
         <Input data={entry.pName} onChange={handleChange} />
         <br />
         <Input data={entry.link} onChange={handleChange} />
