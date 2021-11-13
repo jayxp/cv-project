@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
 import Input from "./Input";
 
@@ -7,7 +7,6 @@ export default function ProjectCategory(props) {
   const { proList, id, pName, link, details, detailInput } = data;
   const [list, setList] = useState({ proList });
   const [entry, setEntry] = useState({ id, pName, link, details, detailInput });
-  const initial = useRef({ pName, link, details, detailInput });
 
   function handleChange(event) {
     setEntry((prevState) => {
@@ -26,11 +25,11 @@ export default function ProjectCategory(props) {
     setList({ proList: list.proList.concat(entry) });
     setEntry({
       id: uniqid(),
-      ...initial.current,
+      ...data,
     });
   }
 
-  function addTask() {
+  function addDetail() {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -38,30 +37,30 @@ export default function ProjectCategory(props) {
           id: uniqid(),
           ...entry.detailInput,
         }),
-        detailInput: { ...initial.current.detailInput },
+        detailInput: { ...detailInput },
       };
     });
   }
 
   return (
     <>
+      <h2>Projects</h2>
+      <hr />
       <form onSubmit={handleSubmit}>
-        <h2>Projects</h2>
-        <hr />
         <Input data={entry.pName} onChange={handleChange} />
         <br />
         <Input data={entry.link} onChange={handleChange} />
         <br />
         <Input data={entry.detailInput} onChange={handleChange} />{" "}
-        <button type="button" onClick={addTask}>
+        <button type="button" onClick={addDetail}>
           Add
         </button>
         <br />
         {entry.details.length > 0 &&
-          entry.details.map((e) => {
+          entry.details.map((detail) => {
             return (
-              <div key={e.id}>
-                <p>{e.text}</p>
+              <div key={detail.id}>
+                <p>{detail.text}</p>
               </div>
             );
           })}
@@ -69,17 +68,17 @@ export default function ProjectCategory(props) {
         <button type="submit">Submit</button>
       </form>
       {list.proList.length > 0 &&
-        list.proList.map((e) => {
+        list.proList.map((element) => {
           return (
-            <div key={e.id}>
-              <p>{e.pName.text}</p>
-              <p>{e.link.text}</p>
-              {e.details.length > 0 &&
-                e.details.map((test) => {
+            <div key={element.id}>
+              <p>{element.pName.text}</p>
+              <p>{element.link.text}</p>
+              {element.details.length > 0 &&
+                element.details.map((detail) => {
                   return (
-                    <div key={test.id}>
+                    <div key={detail.id}>
                       <ul>
-                        <li>{test.text}</li>
+                        <li>{detail.text}</li>
                       </ul>
                     </div>
                   );

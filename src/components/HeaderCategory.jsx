@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Input from "./Input";
 
 export default function HeaderCategory(props) {
@@ -6,13 +6,6 @@ export default function HeaderCategory(props) {
   const { email, phone, name, website, github } = data;
   const [list, setList] = useState({ display: false });
   const [entry, setEntry] = useState({
-    email,
-    phone,
-    name,
-    website,
-    github,
-  });
-  const initial = useRef({
     email,
     phone,
     name,
@@ -39,7 +32,7 @@ export default function HeaderCategory(props) {
       ...entry,
     });
     setEntry({
-      ...initial.current,
+      ...data,
     });
   }
 

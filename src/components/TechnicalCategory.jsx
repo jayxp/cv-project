@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Input from "./Input";
 
 export default function TechnicalCategory(props) {
@@ -6,7 +6,6 @@ export default function TechnicalCategory(props) {
   const { languages, frameLibs, tools } = data;
   const [list, setList] = useState({ display: false });
   const [entry, setEntry] = useState({ languages, frameLibs, tools });
-  const initial = useRef({ languages, frameLibs, tools });
 
   function handleChange(event) {
     setEntry((prevState) => {
@@ -27,15 +26,15 @@ export default function TechnicalCategory(props) {
       ...entry,
     });
     setEntry({
-      ...initial.current,
+      ...data,
     });
   }
 
   return (
     <>
+      <h2>Technical Skills</h2>
+      <hr />
       <form onSubmit={handleSubmit}>
-        <h2>Technical Skills</h2>
-        <hr />
         <p>
           Languages: <Input data={entry.languages} onChange={handleChange} />
         </p>

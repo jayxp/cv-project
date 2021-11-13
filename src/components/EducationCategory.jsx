@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
 import Input from "./Input";
 
@@ -8,13 +8,6 @@ export default function EducationCategory(props) {
   const [list, setList] = useState({ eduList });
   const [entry, setEntry] = useState({
     id,
-    location,
-    college,
-    dateFrom,
-    dateTo,
-    degree,
-  });
-  const initial = useRef({
     location,
     college,
     dateFrom,
@@ -39,15 +32,26 @@ export default function EducationCategory(props) {
     setList({ eduList: list.eduList.concat(entry) });
     setEntry({
       id: uniqid(),
-      ...initial.current,
+      ...data,
     });
+  }
+
+  function deleteEntry(prop) {
+    const newList = [...list.eduList];
+
+    newList.splice(
+      newList.findIndex((element) => element.id === prop.id),
+      1
+    );
+
+    setList({});
   }
 
   return (
     <>
+      <h2>Education</h2>
+      <hr />
       <form onSubmit={handleSubmit}>
-        <h2>Education</h2>
-        <hr />
         <Input data={entry.location} onChange={handleChange} />
         <br />
         <Input data={entry.college} onChange={handleChange} />
@@ -63,14 +67,14 @@ export default function EducationCategory(props) {
         <br />
       </form>
       {list.eduList.length > 0 &&
-        list.eduList.map((e) => {
+        list.eduList.map((element) => {
           return (
-            <div key={e.id}>
-              <p>{e.location.text}</p>
-              <p>{e.college.text}</p>
-              <p>{e.dateFrom.text}</p>
-              <p>{e.dateTo.text}</p>
-              <p>{e.degree.text}</p>
+            <div key={element.id}>
+              <p>{element.location.text}</p>
+              <p>{element.college.text}</p>
+              <p>{element.dateFrom.text}</p>
+              <p>{element.dateTo.text}</p>
+              <p>{element.degree.text}</p>
             </div>
           );
         })}

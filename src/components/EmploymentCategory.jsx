@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
 import Input from "./Input";
 
@@ -9,14 +9,6 @@ export default function EmploymentCategory(props) {
   const [list, setList] = useState({ empList });
   const [entry, setEntry] = useState({
     id,
-    job,
-    company,
-    dateFrom,
-    dateTo,
-    details,
-    detailInput,
-  });
-  const initial = useRef({
     job,
     company,
     dateFrom,
@@ -37,7 +29,7 @@ export default function EmploymentCategory(props) {
     });
   }
 
-  function addTask() {
+  function addDetail() {
     setEntry((prevState) => {
       return {
         ...prevState,
@@ -45,7 +37,7 @@ export default function EmploymentCategory(props) {
           id: uniqid(),
           ...entry.detailInput,
         }),
-        detailInput: { ...initial.current.detailInput },
+        detailInput: { ...detailInput },
       };
     });
   }
@@ -55,16 +47,16 @@ export default function EmploymentCategory(props) {
     setList({ empList: list.empList.concat(entry) });
     setEntry({
       id: uniqid(),
-      ...initial.current,
       details: [],
+      ...data,
     });
   }
 
   return (
     <>
+      <h2>Employment</h2>
+      <hr />
       <form onSubmit={handleSubmit}>
-        <h2>Employment</h2>
-        <hr />
         <Input data={entry.job} onChange={handleChange} />
         <br />
         <Input data={entry.company} onChange={handleChange} />
@@ -74,15 +66,15 @@ export default function EmploymentCategory(props) {
         <Input data={entry.dateTo} onChange={handleChange} />
         <br />
         <Input data={entry.detailInput} onChange={handleChange} />{" "}
-        <button type="button" onClick={addTask}>
+        <button type="button" onClick={addDetail}>
           Add
         </button>
         <br />
         {entry.details.length > 0 &&
-          entry.details.map((e) => {
+          entry.details.map((detail) => {
             return (
-              <div key={e.id}>
-                <p>{e.text}</p>
+              <div key={detail.id}>
+                <p>{detail.text}</p>
               </div>
             );
           })}
@@ -90,19 +82,19 @@ export default function EmploymentCategory(props) {
         <button type="submit">Submit</button>
       </form>
       {list.empList.length > 0 &&
-        list.empList.map((e) => {
+        list.empList.map((element) => {
           return (
-            <div key={e.id}>
-              <p>{e.job.text}</p>
-              <p>{e.company.text}</p>
-              <p>{e.dateFrom.text}</p>
-              <p>{e.dateTo.text}</p>
-              {e.details.length > 0 &&
-                e.details.map((test) => {
+            <div key={element.id}>
+              <p>{element.job.text}</p>
+              <p>{element.company.text}</p>
+              <p>{element.dateFrom.text}</p>
+              <p>{element.dateTo.text}</p>
+              {element.details.length > 0 &&
+                element.details.map((detail) => {
                   return (
-                    <div key={test.id}>
+                    <div key={detail.id}>
                       <ul>
-                        <li>{test.text}</li>
+                        <li>{detail.text}</li>
                       </ul>
                     </div>
                   );
