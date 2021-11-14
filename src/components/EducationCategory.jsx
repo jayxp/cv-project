@@ -44,9 +44,7 @@ export default function EducationCategory(props) {
       1
     );
 
-    setList({
-      store: [...newList],
-    });
+    setList([...newList]);
   };
 
   return (

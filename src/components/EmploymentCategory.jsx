@@ -72,9 +72,7 @@ export default function EmploymentCategory(props) {
       1
     );
 
-    setList({
-      store: [...newList],
-    });
+    setList([...newList]);
   };
 
   return (

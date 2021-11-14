@@ -85,7 +85,7 @@ export default function ProjectCategory(props) {
           {entry.details.length > 0 &&
             entry.details.map((detail) => (
               <li key={detail.id}>
-                {detail.text}
+                {detail.text}{" "}
                 <button type="button" onClick={() => deleteDetail(detail)}>
                   Delete
                 </button>
