@@ -42,6 +42,19 @@ export default function ProjectCategory(props) {
     });
   };
 
+  const deleteEntry = (prop) => {
+    const newList = [...list.store];
+
+    newList.splice(
+      newList.findIndex((element) => element.id === prop.id),
+      1
+    );
+
+    setList({
+      store: [...newList],
+    });
+  };
+
   return (
     <>
       <h2>Projects</h2>
@@ -83,6 +96,9 @@ export default function ProjectCategory(props) {
                     </div>
                   );
                 })}
+              <button type="button" onClick={() => deleteEntry(element)}>
+                Delete
+              </button>
             </div>
           );
         })}

@@ -51,6 +51,19 @@ export default function EmploymentCategory(props) {
     });
   };
 
+  const deleteEntry = (prop) => {
+    const newList = [...list.store];
+
+    newList.splice(
+      newList.findIndex((element) => element.id === prop.id),
+      1
+    );
+
+    setList({
+      store: [...newList],
+    });
+  };
+
   return (
     <>
       <h2>Employment</h2>
@@ -98,6 +111,9 @@ export default function EmploymentCategory(props) {
                     </div>
                   );
                 })}
+              <button type="button" onClick={() => deleteEntry(element)}>
+                Delete
+              </button>
             </div>
           );
         })}
