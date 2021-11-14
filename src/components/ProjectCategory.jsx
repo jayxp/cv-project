@@ -4,8 +4,8 @@ import Input from "./Input";
 
 export default function ProjectCategory(props) {
   const { data } = props;
-  const { store, id, pName, link, details, detailInput } = data;
-  const [list, setList] = useState({ store });
+  const { id, pName, link, details, detailInput } = data;
+  const [list, setList] = useState([]);
   const [entry, setEntry] = useState({ id, pName, link, details, detailInput });
 
   const handleChange = (event) => {
@@ -22,10 +22,10 @@ export default function ProjectCategory(props) {
 
   const handleSubmitExt = (event) => {
     event.preventDefault();
-    setList({ store: list.store.concat(entry) });
+    setList(list.concat(entry));
     setEntry({
-      id: uniqid(),
       ...data,
+      id: uniqid(),
     });
   };
 
@@ -34,25 +34,37 @@ export default function ProjectCategory(props) {
       return {
         ...prevState,
         details: prevState.details.concat({
-          id: uniqid(),
           ...entry.detailInput,
+          id: uniqid(),
         }),
         detailInput: { ...detailInput },
       };
     });
   };
 
-  const deleteEntry = (prop) => {
-    const newList = [...list.store];
+  const deleteDetail = (prop) => {
+    const newList = [...entry.details];
 
     newList.splice(
       newList.findIndex((element) => element.id === prop.id),
       1
     );
 
-    setList({
-      store: [...newList],
+    setEntry({
+      ...entry,
+      details: [...newList],
     });
+  };
+
+  const deleteEntry = (prop) => {
+    const newList = [...list];
+
+    newList.splice(
+      newList.findIndex((element) => element.id === prop.id),
+      1
+    );
+
+    setList([...newList]);
   };
 
   return (
@@ -69,33 +81,32 @@ export default function ProjectCategory(props) {
           Add
         </button>
         <br />
-        {entry.details.length > 0 &&
-          entry.details.map((detail) => {
-            return (
-              <div key={detail.id}>
-                <p>{detail.text}</p>
-              </div>
-            );
-          })}
+        <ul>
+          {entry.details.length > 0 &&
+            entry.details.map((detail) => (
+              <li key={detail.id}>
+                {detail.text}
+                <button type="button" onClick={() => deleteDetail(detail)}>
+                  Delete
+                </button>
+              </li>
+            ))}
+        </ul>
         <br />
         <button type="submit">Submit</button>
       </form>
-      {list.store.length > 0 &&
-        list.store.map((element) => {
+      {list.length > 0 &&
+        list.map((element) => {
           return (
             <div key={element.id}>
               <p>{element.pName.text}</p>
               <p>{element.link.text}</p>
-              {element.details.length > 0 &&
-                element.details.map((detail) => {
-                  return (
-                    <div key={detail.id}>
-                      <ul>
-                        <li>{detail.text}</li>
-                      </ul>
-                    </div>
-                  );
-                })}
+              <ul>
+                {element.details.length > 0 &&
+                  element.details.map((detail) => (
+                    <li key={detail.id}>{detail.text}</li>
+                  ))}
+              </ul>
               <button type="button" onClick={() => deleteEntry(element)}>
                 Delete
               </button>

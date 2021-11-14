@@ -22,8 +22,8 @@ export default function TechnicalCategory(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setList({
-      display: true,
       ...entry,
+      display: true,
     });
     setEntry({
       ...data,
