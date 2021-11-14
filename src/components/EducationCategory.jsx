@@ -31,8 +31,8 @@ export default function EducationCategory(props) {
     event.preventDefault();
     setList({ store: list.store.concat(entry) });
     setEntry({
-      id: uniqid(),
       ...data,
+      id: uniqid(),
     });
   };
 
@@ -77,6 +77,9 @@ export default function EducationCategory(props) {
               <p>{element.dateFrom.text}</p>
               <p>{element.dateTo.text}</p>
               <p>{element.degree.text}</p>
+              <button type="button" onClick={() => deleteEntry(element)}>
+                Delete
+              </button>
             </div>
           );
         })}
