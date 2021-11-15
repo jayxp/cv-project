@@ -1,66 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import Input from "./Input";
+import useHelper from "../utils/helpers";
 
 export default function HeaderCategory(props) {
   const { data } = props;
-  const { email, phone, name, website, github } = data;
-  const [list, setList] = useState({ display: false });
-  const [entry, setEntry] = useState({
-    email,
-    phone,
-    name,
-    website,
-    github,
-  });
-
-  const handleChange = (event) => {
-    setEntry((prevState) => {
-      return {
-        ...prevState,
-        [event.target.name]: {
-          ...prevState[event.target.name],
-          text: event.target.value,
-        },
-      };
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setList({
-      display: true,
-      ...entry,
-    });
-    setEntry({
-      ...data,
-    });
-  };
+  const userData = useHelper({ ...data });
 
   return (
     <>
       <form>
-        <Input data={entry.email} onChange={handleChange} />
+        <Input data={userData.entry.email} onChange={userData.handleChange} />
         <br />
-        <Input data={entry.phone} onChange={handleChange} />
+        <Input data={userData.entry.phone} onChange={userData.handleChange} />
         <br />
-        <Input data={entry.name} onChange={handleChange} />
+        <Input data={userData.entry.name} onChange={userData.handleChange} />
         <br />
-        <Input data={entry.website} onChange={handleChange} />
+        <Input data={userData.entry.website} onChange={userData.handleChange} />
         <br />
-        <Input data={entry.github} onChange={handleChange} />
+        <Input data={userData.entry.github} onChange={userData.handleChange} />
         <br />
         <br />
-        <button type="submit" onClick={handleSubmit}>
+        <button type="submit" onClick={userData.handleSubmit}>
           Submit
         </button>
       </form>
-      {list.display === true && (
+      {userData.list.display === true && (
         <>
-          <p>{list.email.text}</p>
-          <p>{list.phone.text}</p>
-          <p>{list.name.text}</p>
-          <p>{list.website.text}</p>
-          <p>{list.github.text}</p>
+          <p>{userData.list.email.text}</p>
+          <p>{userData.list.phone.text}</p>
+          <p>{userData.list.name.text}</p>
+          <p>{userData.list.website.text}</p>
+          <p>{userData.list.github.text}</p>
         </>
       )}
     </>

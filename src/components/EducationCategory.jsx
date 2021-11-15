@@ -1,73 +1,38 @@
-import React, { useState } from "react";
-import uniqid from "uniqid";
+import React from "react";
 import Input from "./Input";
+import useHelper from "../utils/helpers";
 
 export default function EducationCategory(props) {
   const { data } = props;
-  const { id, location, college, dateFrom, dateTo, degree } = data;
-  const [list, setList] = useState([]);
-  const [entry, setEntry] = useState({
-    id,
-    location,
-    college,
-    dateFrom,
-    dateTo,
-    degree,
-  });
-
-  const handleChange = (event) => {
-    setEntry((prevState) => {
-      return {
-        ...prevState,
-        [event.target.name]: {
-          ...prevState[event.target.name],
-          text: event.target.value,
-        },
-      };
-    });
-  };
-
-  const handleSubmitExt = (event) => {
-    event.preventDefault();
-    setList(list.concat(entry));
-    setEntry({
-      ...data,
-      id: uniqid(),
-    });
-  };
-
-  const deleteEntry = (prop) => {
-    const newList = [...list];
-
-    newList.splice(
-      newList.findIndex((element) => element.id === prop.id),
-      1
-    );
-
-    setList([...newList]);
-  };
+  const userData = useHelper({ ...data });
 
   return (
     <>
       <h2>Education</h2>
       <hr />
-      <form onSubmit={handleSubmitExt}>
-        <Input data={entry.location} onChange={handleChange} />
+      <form onSubmit={userData.handleSubmitExt}>
+        <Input
+          data={userData.entry.location}
+          onChange={userData.handleChange}
+        />
         <br />
-        <Input data={entry.college} onChange={handleChange} />
+        <Input data={userData.entry.college} onChange={userData.handleChange} />
         <br />
-        <Input data={entry.dateFrom} onChange={handleChange} />
+        <Input
+          data={userData.entry.dateFrom}
+          onChange={userData.handleChange}
+        />
         <br />
-        <Input data={entry.dateTo} onChange={handleChange} />
+        <Input data={userData.entry.dateTo} onChange={userData.handleChange} />
         <br />
-        <Input data={entry.degree} onChange={handleChange} />
+        <Input data={userData.entry.degree} onChange={userData.handleChange} />
         <br />
         <br />
         <button type="submit">Submit</button>
         <br />
       </form>
-      {list.length > 0 &&
-        list.map((element) => {
+      {userData.list.length > 0 &&
+        userData.list.map((element) => {
           return (
             <div key={element.id}>
               <p>{element.location.text}</p>
@@ -75,7 +40,10 @@ export default function EducationCategory(props) {
               <p>{element.dateFrom.text}</p>
               <p>{element.dateTo.text}</p>
               <p>{element.degree.text}</p>
-              <button type="button" onClick={() => deleteEntry(element)}>
+              <button
+                type="button"
+                onClick={() => userData.deleteEntry(element)}
+              >
                 Delete
               </button>
             </div>

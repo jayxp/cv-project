@@ -1,54 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import Input from "./Input";
+import useHelper from "../utils/helpers";
 
 export default function TechnicalCategory(props) {
   const { data } = props;
-  const { languages, frameLibs, tools } = data;
-  const [list, setList] = useState({ display: false });
-  const [entry, setEntry] = useState({ languages, frameLibs, tools });
-
-  const handleChange = (event) => {
-    setEntry((prevState) => {
-      return {
-        ...prevState,
-        [event.target.name]: {
-          ...prevState[event.target.name],
-          text: event.target.value,
-        },
-      };
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setList({
-      ...entry,
-      display: true,
-    });
-    setEntry({
-      ...data,
-    });
-  };
+  const userData = useHelper({ ...data });
 
   return (
     <>
       <h2>Technical Skills</h2>
       <hr />
-      <form onSubmit={handleSubmit}>
-        <Input data={entry.languages} onChange={handleChange} />
+      <form onSubmit={userData.handleSubmit}>
+        <Input
+          data={userData.entry.languages}
+          onChange={userData.handleChange}
+        />
         <br />
-        <Input data={entry.frameLibs} onChange={handleChange} />
+        <Input
+          data={userData.entry.frameLibs}
+          onChange={userData.handleChange}
+        />
         <br />
-        <Input data={entry.tools} onChange={handleChange} />
+        <Input data={userData.entry.tools} onChange={userData.handleChange} />
         <br />
         <br />
         <button type="submit">Submit</button>
       </form>
-      {list.display === true && (
+      {userData.list.display === true && (
         <>
-          <p>Languages: {list.languages.text}</p>
-          <p>Frameworks and Libraries: {list.frameLibs.text}</p>
-          <p>Tools: {list.tools.text}</p>
+          <p>Languages: {userData.list.languages.text}</p>
+          <p>Frameworks and Libraries: {userData.list.frameLibs.text}</p>
+          <p>Tools: {userData.list.tools.text}</p>
         </>
       )}
     </>
