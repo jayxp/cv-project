@@ -38,12 +38,7 @@ export default function useHelper(props) {
   };
 
   const deleteEntry = (prop) => {
-    const newList = [...list];
-
-    newList.splice(
-      newList.findIndex((element) => element.id === prop.id),
-      1
-    );
+    const newList = list.filter((e) => e.id !== prop.id);
 
     setList([...newList]);
   };
@@ -62,12 +57,7 @@ export default function useHelper(props) {
   };
 
   const deleteDetail = (prop) => {
-    const newList = [...entry.details];
-
-    newList.splice(
-      newList.findIndex((element) => element.id === prop.id),
-      1
-    );
+    const newList = entry.details.filter((e) => e.id !== prop.id);
 
     setEntry({
       ...entry,
