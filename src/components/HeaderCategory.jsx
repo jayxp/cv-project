@@ -8,6 +8,8 @@ export default function HeaderCategory(props) {
 
   return (
     <>
+      <h2>Header</h2>
+      <hr />
       <form>
         <Input data={userData.entry.email} onChange={userData.handleChange} />
         <br />
