@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "./Input";
 import useHelper from "../utils/helpers";
+import HeaderList from "./HeaderList";
 
 export default function HeaderCategory(props) {
   const { data } = props;
@@ -24,15 +25,7 @@ export default function HeaderCategory(props) {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {userData.list.display === true && (
-        <>
-          <p>{userData.list.email.text}</p>
-          <p>{userData.list.phone.text}</p>
-          <p>{userData.list.name.text}</p>
-          <p>{userData.list.website.text}</p>
-          <p>{userData.list.github.text}</p>
-        </>
-      )}
+      <HeaderList list={userData.list} />
     </>
   );
 }

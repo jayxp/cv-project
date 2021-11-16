@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "./Input";
 import useHelper from "../utils/helpers";
+import TechnicalList from "./TechnicalList";
 
 export default function TechnicalCategory(props) {
   const { data } = props;
@@ -26,13 +27,7 @@ export default function TechnicalCategory(props) {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {userData.list.display === true && (
-        <>
-          <p>Languages: {userData.list.languages.text}</p>
-          <p>Frameworks and Libraries: {userData.list.frameLibs.text}</p>
-          <p>Tools: {userData.list.tools.text}</p>
-        </>
-      )}
+      <TechnicalList list={userData.list} />
     </>
   );
 }

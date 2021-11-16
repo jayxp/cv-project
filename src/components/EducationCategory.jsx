@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "./Input";
 import useHelper from "../utils/helpers";
+import EducationList from "./EducationList";
 
 export default function EducationCategory(props) {
   const { data } = props;
@@ -31,24 +32,7 @@ export default function EducationCategory(props) {
         <button type="submit">Submit</button>
         <br />
       </form>
-      {userData.list.length > 0 &&
-        userData.list.map((element) => {
-          return (
-            <div key={element.id}>
-              <p>{element.location.text}</p>
-              <p>{element.college.text}</p>
-              <p>{element.dateFrom.text}</p>
-              <p>{element.dateTo.text}</p>
-              <p>{element.degree.text}</p>
-              <button
-                type="button"
-                onClick={() => userData.deleteEntry(element)}
-              >
-                Delete
-              </button>
-            </div>
-          );
-        })}
+      <EducationList list={userData.list} deleteEntry={userData.deleteEntry} />
     </>
   );
 }

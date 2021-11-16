@@ -2,7 +2,7 @@
 
 ---
 
-## :page_with_curl: Key Features
+## Key Features
 
 #### 1.
 
@@ -10,6 +10,6 @@
 
 #### 3.
 
-## :key: Usage
+## Usage
 
 `Stuff here`
