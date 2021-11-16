@@ -10,7 +10,7 @@ export default function HeaderCategory(props) {
     <>
       <h2>Header</h2>
       <hr />
-      <form>
+      <form onSubmit={userData.handleSubmit}>
         <Input data={userData.entry.email} onChange={userData.handleChange} />
         <br />
         <Input data={userData.entry.phone} onChange={userData.handleChange} />
@@ -22,9 +22,7 @@ export default function HeaderCategory(props) {
         <Input data={userData.entry.github} onChange={userData.handleChange} />
         <br />
         <br />
-        <button type="submit" onClick={userData.handleSubmit}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
       {userData.list.display === true && (
         <>
