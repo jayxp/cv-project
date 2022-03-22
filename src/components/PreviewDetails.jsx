@@ -1,4 +1,5 @@
 import React from "react";
+import StyledButton from "../styles/Button.styled";
 
 export default function PreviewDetails(props) {
   const { entry, deleteDetail } = props;
@@ -9,9 +10,14 @@ export default function PreviewDetails(props) {
         entry.details.map((detail) => (
           <li key={detail.id}>
             {detail.text}{" "}
-            <button type="button" onClick={() => deleteDetail(detail)}>
+            <StyledButton
+              top="0px"
+              color="red"
+              type="button"
+              onClick={() => deleteDetail(detail)}
+            >
               Delete
-            </button>
+            </StyledButton>
           </li>
         ))}
     </ul>

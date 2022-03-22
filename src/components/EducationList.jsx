@@ -1,4 +1,7 @@
 import React from "react";
+import StyledButton from "../styles/Button.styled";
+import { Education } from "../styles/Categories.styled";
+import convertDate from "../utils/convertDate";
 
 export default function EducationList(props) {
   const { list, deleteEntry } = props;
@@ -7,16 +10,23 @@ export default function EducationList(props) {
     list.length > 0 &&
     list.map((entry) => {
       return (
-        <div key={entry.id}>
-          <p>{entry.location.text}</p>
-          <p>{entry.college.text}</p>
-          <p>{entry.dateFrom.text}</p>
-          <p>{entry.dateTo.text}</p>
-          <p>{entry.degree.text}</p>
-          <button type="button" onClick={() => deleteEntry(entry)}>
+        <Education key={entry.id}>
+          <p className="location">{entry.location.text}</p>
+          <p className="college">{entry.college.text}</p>
+          <p className="date">
+            {convertDate(entry.dateFrom.text)}
+            {" - "}
+            {convertDate(entry.dateTo.text)}
+          </p>
+          <p className="degree">{entry.degree.text}</p>
+          <StyledButton
+            color="red"
+            type="button"
+            onClick={() => deleteEntry(entry)}
+          >
             Delete
-          </button>
-        </div>
+          </StyledButton>
+        </Education>
       );
     })
   );

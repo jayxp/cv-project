@@ -43,7 +43,8 @@ export default function useHelper(props) {
     setList([...newList]);
   };
 
-  const addDetail = () => {
+  const addDetail = (event) => {
+    event.preventDefault();
     setEntry((prevState) => {
       return {
         ...prevState,

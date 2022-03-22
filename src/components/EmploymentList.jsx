@@ -1,4 +1,7 @@
 import React from "react";
+import StyledButton from "../styles/Button.styled";
+import { Employment } from "../styles/Categories.styled";
+import convertDate from "../utils/convertDate";
 
 export default function EmploymentList(props) {
   const { list, deleteEntry } = props;
@@ -7,21 +10,27 @@ export default function EmploymentList(props) {
     list.length > 0 &&
     list.map((entry) => {
       return (
-        <div key={entry.id}>
-          <p>{entry.job.text}</p>
-          <p>{entry.company.text}</p>
-          <p>{entry.dateFrom.text}</p>
-          <p>{entry.dateTo.text}</p>
-          <ul>
+        <Employment key={entry.id}>
+          <p className="job">{entry.job.text}</p>
+          <p className="company">{entry.company.text}</p>
+          <p className="date">
+            {convertDate(entry.dateFrom.text)} {" - "}
+            {convertDate(entry.dateTo.text)}
+          </p>
+          <ul className="list">
             {entry.details.length > 0 &&
               entry.details.map((detail) => (
                 <li key={detail.id}>{detail.text}</li>
               ))}
           </ul>
-          <button type="button" onClick={() => deleteEntry(entry)}>
+          <StyledButton
+            color="red"
+            type="button"
+            onClick={() => deleteEntry(entry)}
+          >
             Delete
-          </button>
-        </div>
+          </StyledButton>
+        </Employment>
       );
     })
   );

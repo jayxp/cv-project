@@ -1,39 +1,46 @@
 import uniqid from "uniqid";
 
-const headerData = {
+const contactData = {
   email: {
-    text: "",
+    text: "firstlast@mail.com",
     name: "email",
     type: "email",
     description: "Email Address",
     example: "mail@example.com",
   },
   phone: {
-    text: "",
+    text: "1234567890",
     name: "phone",
     type: "tel",
     description: "Phone Number",
     example: "(999) 999-9999",
   },
   name: {
-    text: "",
+    text: "First Last",
     name: "name",
     type: "text",
     description: "Full Name",
     example: "John Doe",
   },
   website: {
-    text: "",
+    text: "https://example.com",
     name: "website",
-    type: "text",
+    type: "url",
     description: "Personal Website",
-    example: "example.com",
+    example: "https://example.com",
   },
   github: {
-    text: "",
+    text: "example",
     name: "github",
     type: "text",
-    description: "Github Handle",
+    description: "GitHub Handle",
+    example: "username",
+  },
+  linkedin: {
+    text: "Example",
+    name: "linkedin",
+    type: "text",
+    description: "LinkedIn Handle",
     example: "username",
   },
 };
@@ -41,35 +48,35 @@ const headerData = {
 const educationData = {
   id: uniqid(),
   location: {
-    text: "",
+    text: "City, State",
     name: "location",
     type: "text",
     description: "Location",
     example: "City, State",
   },
   college: {
-    text: "",
+    text: "University of Example",
     name: "college",
     type: "text",
     description: "College",
     example: "University of X",
   },
   dateFrom: {
-    text: "",
+    text: "2014-08",
     name: "dateFrom",
     type: "month",
     description: "Date From",
     example: "2014-08",
   },
   dateTo: {
-    text: "",
+    text: "2018-05",
     name: "dateTo",
     type: "month",
     description: "Date To",
     example: "2018-05",
   },
   degree: {
-    text: "",
+    text: "BS in Example Systems",
     name: "degree",
     type: "text",
     description: "Degree Program",
@@ -80,28 +87,28 @@ const educationData = {
 const employmentData = {
   id: uniqid(),
   job: {
-    text: "",
+    text: "Example Analyst",
     name: "job",
     type: "text",
     description: "Position",
     example: "Software Developer",
   },
   company: {
-    text: "",
+    text: "Example Inc.",
     name: "company",
     type: "text",
     description: "Company Name",
     example: "Google",
   },
   dateFrom: {
-    text: "",
+    text: "2018-06",
     name: "dateFrom",
     type: "month",
     description: "Date From",
     example: "2018-06",
   },
   dateTo: {
-    text: "",
+    text: "2020-08",
     name: "dateTo",
     type: "month",
     description: "Date To",
@@ -120,16 +127,16 @@ const employmentData = {
 const projectData = {
   id: uniqid(),
   pName: {
-    text: "",
+    text: "Example Project",
     name: "pName",
     type: "text",
     description: "Project Name",
     example: "Example Project",
   },
   link: {
-    text: "",
+    text: "https://github.com/example/example-project",
     name: "link",
-    type: "text",
+    type: "url",
     description: "Project URL",
     example: "https://github.com/user/link",
   },
@@ -145,21 +152,21 @@ const projectData = {
 
 const technicalData = {
   languages: {
-    text: "",
+    text: "HTML, CSS, JavaScript, SQL, Python",
     name: "languages",
     type: "text",
     description: "Languages",
     example: "HTML, CSS, JavaScript, SQL, Python",
   },
   frameLibs: {
-    text: "",
+    text: "React, React-Native, Node.js",
     name: "frameLibs",
     type: "text",
     description: "Frameworks & Libraries",
-    example: "React, React-Native, Node.js, Express.js",
+    example: "React, React-Native, Node.js",
   },
   tools: {
-    text: "",
+    text: "Git, Linux, Webpack, NPM, Jira",
     name: "tools",
     type: "text",
     description: "Tools",
@@ -168,7 +175,7 @@ const technicalData = {
 };
 
 export {
-  headerData,
+  contactData,
   educationData,
   employmentData,
   projectData,

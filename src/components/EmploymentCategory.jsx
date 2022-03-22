@@ -1,44 +1,49 @@
 import React from "react";
 import Input from "./Input";
-import useHelper from "../utils/helpers";
+import useHelper from "../utils/useHelper";
 import EmploymentList from "./EmploymentList";
 import PreviewDetails from "./PreviewDetails";
+import StyledForm from "../styles/Form.styled";
+import StyledButton from "../styles/Button.styled";
+import { Category } from "../styles/Categories.styled";
 
 export default function EmploymentCategory(props) {
   const { data } = props;
   const userData = useHelper({ ...data });
 
   return (
-    <>
+    <Category>
       <h2>Employment</h2>
       <hr />
-      <form onSubmit={userData.handleSubmitExt}>
+      <StyledForm onSubmit={userData.handleSubmitExt}>
         <Input data={userData.entry.job} onChange={userData.handleChange} />
-        <br />
         <Input data={userData.entry.company} onChange={userData.handleChange} />
-        <br />
         <Input
           data={userData.entry.dateFrom}
           onChange={userData.handleChange}
         />
-        <br />
         <Input data={userData.entry.dateTo} onChange={userData.handleChange} />
-        <br />
         <Input
           data={userData.entry.detailInput}
           onChange={userData.handleChange}
         />{" "}
-        <button type="button" onClick={userData.addDetail}>
+        <StyledButton
+          top="0px"
+          color="#2822bf"
+          size="90%"
+          type="button"
+          radius="5px"
+          onClick={userData.addDetail}
+        >
           Add
-        </button>
+        </StyledButton>
         <PreviewDetails
           entry={userData.entry}
           deleteDetail={userData.deleteDetail}
         />
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+        <StyledButton type="submit">Submit</StyledButton>
+      </StyledForm>
       <EmploymentList list={userData.list} deleteEntry={userData.deleteEntry} />
-    </>
+    </Category>
   );
 }
