@@ -28,14 +28,14 @@ export default function EmploymentCategory(props) {
           onChange={userData.handleChange}
         />{" "}
         <StyledButton
-          top="0px"
+          top="5px"
           color="#2822bf"
           size="90%"
           type="button"
           radius="5px"
           onClick={userData.addDetail}
         >
-          Add
+          Add Detail
         </StyledButton>
         <PreviewDetails
           entry={userData.entry}

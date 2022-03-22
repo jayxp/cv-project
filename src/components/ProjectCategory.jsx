@@ -27,14 +27,14 @@ export default function ProjectCategory(props) {
           onChange={userData.handleChange}
         />
         <StyledButton
-          top="0px"
+          top="5px"
           color="#2822bf"
           type="button"
           size="90%"
           radius="5px"
           onClick={userData.addDetail}
         >
-          Add
+          Add Detail
         </StyledButton>
         <PreviewDetails
           entry={userData.entry}

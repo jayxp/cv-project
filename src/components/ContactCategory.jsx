@@ -12,7 +12,6 @@ export default function ContactCategory(props) {
 
   return (
     <Category>
-      <h2>Contact</h2>
       <hr />
       <StyledForm onSubmit={userData.handleSubmit}>
         <Input

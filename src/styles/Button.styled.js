@@ -10,6 +10,8 @@ const StyledButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   margin-top: ${({ top }) => top || "10px"};
+  min-height: 46px;
+  min-width: 46px;
   width: ${({ size }) => size || "100%"};
 
   &:active {
