@@ -60,7 +60,7 @@ export const Contact = styled.article`
     grid-template-areas:
       "email name github"
       "phone site linkedin";
-    grid-template-columns: fit-content(125px) 1fr fit-content(125px);
+    grid-template-columns: 0.6fr 1fr 0.6fr;
   }
 `;
 
@@ -75,6 +75,7 @@ export const Education = styled.article`
   width: 95%;
 
   & > .location {
+    font-weight: bold;
     grid-area: location;
   }
 
@@ -85,6 +86,7 @@ export const Education = styled.article`
   }
 
   & > .date {
+    font-weight: bold;
     grid-area: date;
     text-align: end;
   }
@@ -104,7 +106,7 @@ export const Education = styled.article`
     grid-template-areas:
       "location college date"
       "degree degree degree";
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 0.35fr 0.7fr 0.35fr;
   }
 `;
 
@@ -151,7 +153,7 @@ export const Employment = styled.article`
       "job company date"
       "list . ."
       "button . .";
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
   }
 `;
 
