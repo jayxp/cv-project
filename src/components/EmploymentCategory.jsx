@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "./Input";
 import useHelper from "../utils/useHelper";
 import EmploymentList from "./EmploymentList";
@@ -12,13 +12,11 @@ export default function EmploymentCategory(props) {
   const userData = useHelper({ ...data });
 
   /* 
-  Only applicable here... Add as utility or keep as-is?
-    - Has side effects
-    - dateTo checkbox element synced with month type input element
-      - checkbox passes text value to month input which expects only dates
+  dateTo checkbox element synced with month type input element
+    - checkbox passes text value to month input which expects only dates
         likely unavoidable with current data structure
   */
-  const togglePresent = () => {
+  useEffect(() => {
     const employForm = document.querySelector("form[name=employForm]");
     const monthInput = employForm.elements.dateTo[0];
     const checkboxInput = employForm.elements.dateTo[1];
@@ -28,12 +26,14 @@ export default function EmploymentCategory(props) {
       monthInput.removeAttribute("disabled");
     });
 
-    if (checkboxInput.checked) {
-      monthInput.setAttribute("disabled", "");
-    } else {
-      monthInput.removeAttribute("disabled");
-    }
-  };
+    checkboxInput.addEventListener("click", () => {
+      if (checkboxInput.checked) {
+        monthInput.setAttribute("disabled", "");
+      } else {
+        monthInput.removeAttribute("disabled");
+      }
+    });
+  }, []);
 
   return (
     <Category>
@@ -53,7 +53,6 @@ export default function EmploymentCategory(props) {
               type="checkbox"
               name="dateTo"
               value="Present"
-              onClick={togglePresent}
               onChange={userData.handleChange}
             />
             Present
