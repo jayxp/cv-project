@@ -15,7 +15,9 @@ export default function EmploymentList(props) {
           <p className="company">{entry.company.text}</p>
           <p className="date">
             {convertDate(entry.dateFrom.text)} {" - "}
-            {convertDate(entry.dateTo.text)}
+            {entry.dateTo.text === "Present"
+              ? "Present"
+              : convertDate(entry.dateTo.text)}
           </p>
           <ul className="list">
             {entry.details.length > 0 &&

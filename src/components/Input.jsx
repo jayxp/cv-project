@@ -11,7 +11,7 @@ const Input = (props) => {
 
   return (
     <>
-      <label htmlFor={text}>{description}</label>
+      <label htmlFor={name}>{description}</label>
       <StyledInput
         value={text}
         name={name}

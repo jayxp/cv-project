@@ -11,11 +11,33 @@ export default function EmploymentCategory(props) {
   const { data } = props;
   const userData = useHelper({ ...data });
 
+  /* 
+  Only applicable here... Add as utility or keep as-is?
+    - Has side effects
+    - dateTo checkbox element synced with month type input element
+      - checkbox passes text value to month input which expects only dates
+        likely unavoidable with current data structure
+  */
+  const togglePresent = () => {
+    const employForm = document.querySelector("form[name=employForm]");
+    const monthInput = employForm.elements.dateTo[0];
+    const checkboxInput = employForm.elements.dateTo[1];
+
+    employForm.addEventListener("submit", () => {
+      checkboxInput.checked = false;
+      monthInput.removeAttribute("disabled");
+    });
+
+    checkboxInput.checked
+      ? monthInput.setAttribute("disabled", "")
+      : monthInput.removeAttribute("disabled");
+  };
+
   return (
     <Category>
       <h2>Employment</h2>
       <hr />
-      <StyledForm onSubmit={userData.handleSubmitExt}>
+      <StyledForm name="employForm" onSubmit={userData.handleSubmitExt}>
         <Input data={userData.entry.job} onChange={userData.handleChange} />
         <Input data={userData.entry.company} onChange={userData.handleChange} />
         <Input
@@ -23,6 +45,18 @@ export default function EmploymentCategory(props) {
           onChange={userData.handleChange}
         />
         <Input data={userData.entry.dateTo} onChange={userData.handleChange} />
+        <>
+          <label htmlFor="dateTo">
+            <input
+              type="checkbox"
+              name="dateTo"
+              value="Present"
+              onClick={togglePresent}
+              onChange={userData.handleChange}
+            />
+            Present
+          </label>
+        </>
         <Input
           data={userData.entry.detailInput}
           onChange={userData.handleChange}
