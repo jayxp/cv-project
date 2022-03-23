@@ -28,9 +28,11 @@ export default function EmploymentCategory(props) {
       monthInput.removeAttribute("disabled");
     });
 
-    checkboxInput.checked
-      ? monthInput.setAttribute("disabled", "")
-      : monthInput.removeAttribute("disabled");
+    if (checkboxInput.checked) {
+      monthInput.setAttribute("disabled", "");
+    } else {
+      monthInput.removeAttribute("disabled");
+    }
   };
 
   return (
