@@ -7,6 +7,7 @@ import EducationCategory from "./components/EducationCategory";
 import EmploymentCategory from "./components/EmploymentCategory";
 import ProjectCategory from "./components/ProjectCategory";
 import TechnicalCategory from "./components/TechnicalCategory";
+import BasicDocument from "./components/RenderPDF";
 import Footer from "./components/Footer";
 import {
   contactData,
@@ -14,10 +15,10 @@ import {
   employmentData,
   projectData,
   technicalData,
-} from "./data/index";
+} from "./data/userData";
 import StyledResume from "./styles/Resume.styled";
+import useHelper from "./utils/useHelper";
 
-// Still not doing anything with this
 const theme = {
   mobile: "768px",
   tablet: "1024px",
@@ -34,6 +35,13 @@ export default function App() {
         <EmploymentCategory data={employmentData} />
         <ProjectCategory data={projectData} />
         <TechnicalCategory data={technicalData} />
+        <BasicDocument
+          contact={contactData}
+          education={educationData}
+          employment={employmentData}
+          project={projectData}
+          technical={technicalData}
+        />
       </StyledResume>
       <Footer />
     </ThemeProvider>
