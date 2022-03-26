@@ -19,9 +19,10 @@ const convertDate = (props) => {
   const year = props.slice(0, 4).toString();
   const month = props.slice(5, 7).toString();
 
-  const nameMonth = months[[month] - 1];
+  const nameMonth = month === "nt" ? "Present" : months[[month] - 1];
 
-  const monthYear = `${nameMonth} ${year}`;
+  const monthYear =
+    nameMonth === "Present" ? nameMonth : `${nameMonth} ${year}`;
   return monthYear;
 };
 

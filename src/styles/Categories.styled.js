@@ -70,7 +70,7 @@ export const Education = styled.article`
   grid-template-areas:
     "location college date"
     "degree degree degree";
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 0.35fr 0.7fr 0.35fr;
   margin: 0 auto;
   width: 95%;
 

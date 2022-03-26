@@ -3,12 +3,12 @@ import {
   Document,
   Page,
   Text,
+  Link,
   View,
   StyleSheet,
   PDFViewer,
 } from "@react-pdf/renderer";
 import convertDate from "../utils/convertDate";
-import useHelper from "../utils/useHelper";
 
 // Create styles
 const global = StyleSheet.create({
@@ -19,12 +19,21 @@ const global = StyleSheet.create({
     paddingBottom: 65,
     paddingHorizontal: 35,
   },
+  bullet: {
+    left: 13,
+    position: "absolute",
+    top: 3,
+  },
+  detail: {
+    paddingTop: 3,
+    paddingLeft: 25,
+  },
   header: {
     borderBottom: 1,
     fontSize: 16,
     fontFamily: "Times-Bold",
     marginBottom: 5,
-    marginTop: 30,
+    marginTop: 13,
     paddingBottom: 2,
     paddingLeft: 10,
   },
@@ -35,6 +44,7 @@ const global = StyleSheet.create({
   },
   viewer: {
     width: window.innerWidth,
+    maxWidth: 820,
     height: window.innerHeight,
   },
 });
@@ -47,12 +57,10 @@ const contactStyles = StyleSheet.create({
   github: {
     alignSelf: "flex-end",
     flex: 0.4,
-
     textAlign: "right",
   },
   linkedin: {
     flex: 0.4,
-
     textAlign: "right",
   },
   name: {
@@ -66,7 +74,6 @@ const contactStyles = StyleSheet.create({
   },
   website: {
     flex: 1,
-
     textAlign: "center",
   },
 });
@@ -74,22 +81,22 @@ const contactStyles = StyleSheet.create({
 const educationStyles = StyleSheet.create({
   location: {
     flex: 0.4,
-
     fontFamily: "Times-Bold",
   },
   college: {
     flex: 1,
-
     fontFamily: "Times-Bold",
     textAlign: "center",
   },
   date: {
     flex: 0.4,
-
     fontFamily: "Times-Bold",
+    right: -0,
+    // The positioning in this PDF is jank, I give up!
+    position: "absolute",
   },
   degree: {
-    paddingTop: 3,
+    paddingBottom: 10,
     textAlign: "center",
   },
 });
@@ -98,6 +105,7 @@ const employmentStyles = StyleSheet.create({
   job: {
     flex: 0.4,
     fontFamily: "Times-Bold",
+    textAlign: "start",
   },
   company: {
     flex: 1,
@@ -107,11 +115,24 @@ const employmentStyles = StyleSheet.create({
   date: {
     flex: 0.4,
     fontFamily: "Times-Bold",
+    right: -0,
+    position: "absolute",
   },
-  details: {},
+  detail: {
+    top: 14,
+    paddingTop: 3,
+    left: 25,
+  },
+  bullet: {
+    position: "absolute",
+    left: 13,
+    top: 17,
+  },
 });
 
 const projectStyles = StyleSheet.create({
+  marginBottom: 5,
+
   pName: {
     fontFamily: "Times-Bold",
     paddingBottom: 2,
@@ -120,7 +141,9 @@ const projectStyles = StyleSheet.create({
     fontFamily: "Times-Italic",
     paddingBottom: 2,
   },
-  details: {},
+  details: {
+    paddingLeft: 15,
+  },
 });
 
 const technicalStyles = StyleSheet.create({
@@ -134,12 +157,15 @@ const technicalStyles = StyleSheet.create({
 });
 
 // Create Document Component
-const BasicDocument = (props) => {
-  const { contact, education, employment, project, technical } = props;
-  // const userData = useHelper({ ...data });
-  console.log(props);
+const BasicDocument = ({
+  contact,
+  education,
+  employment,
+  project,
+  technical,
+}) => {
   return (
-    <PDFViewer style={global.viewer}>
+    <PDFViewer style={global.viewer} showToolbar="false">
       {/* Start of the document */}
       <Document>
         {/* FYI: Make a general styles object */}
@@ -164,40 +190,78 @@ const BasicDocument = (props) => {
           {/* Education Category */}
           <>
             <Text style={global.header}>Education</Text>
-            <View style={global.section}>
-              <Text style={educationStyles.location}>
-                {education.location.text}
-              </Text>
-              <Text style={educationStyles.college}>
-                {education.college.text}
-              </Text>
-              <Text style={educationStyles.date}>
-                {convertDate(education.dateFrom.text)} -{" "}
-                {convertDate(education.dateTo.text)}
-              </Text>
-            </View>
-            <Text style={educationStyles.degree}>{education.degree.text}</Text>
+            {education.map((entry) => {
+              const { id, location, college, dateFrom, dateTo, degree } = entry;
+              return (
+                <View key={id}>
+                  <View style={educationStyles}>
+                    <Text style={educationStyles.location}>
+                      {location.text}
+                    </Text>
+                    <Text style={educationStyles.college}>{college.text}</Text>
+                    <Text style={educationStyles.date}>
+                      {convertDate(dateFrom.text)}
+                      {" - "}
+                      {convertDate(dateTo.text)}
+                    </Text>
+                  </View>
+                  <Text style={educationStyles.degree}>
+                    {"\n"}
+                    {degree.text}
+                  </Text>
+                </View>
+              );
+            })}
           </>
           {/* Employment Category */}
           <>
             <Text style={global.header}>Employment</Text>
-            <View style={global.section}>
-              <Text style={employmentStyles.job}>{employment.job.text}</Text>
-              <Text style={employmentStyles.company}>
-                {employment.company.text}
-              </Text>
-              <Text style={employmentStyles.date}>
-                {convertDate(employment.dateFrom.text)} -{" "}
-                {convertDate(employment.dateTo.text)}
-              </Text>
-            </View>
+            {employment.map((entry) => {
+              const { id, job, company, dateFrom, dateTo, details } = entry;
+              return (
+                <View style={employmentStyles} key={id}>
+                  <Text style={employmentStyles.job}>{job.text}</Text>
+                  <Text style={employmentStyles.company}>
+                    {company.text}
+                    {"\n"}
+                  </Text>
+                  <Text style={employmentStyles.date}>
+                    {convertDate(dateFrom.text)} - {convertDate(dateTo.text)}
+                  </Text>
+                  {details.map((detail) => {
+                    return (
+                      <View key={detail.id}>
+                        <Text style={employmentStyles.bullet}>{"\n"}•</Text>
+                        <Text>{detail.text}</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
           </>
           {/* Project Category */}
           <>
             <Text style={global.header}>Projects</Text>
-            <Text style={projectStyles.pName}>{project.pName.text}</Text>
-            <Text style={projectStyles.link}>{project.link.text}</Text>
-            <Text style={projectStyles.details}>{project.details.text}</Text>
+            {project.map((entry) => {
+              const { id, pName, link, details } = entry;
+              return (
+                <View style={projectStyles} key={id}>
+                  <Text style={projectStyles.pName}>{pName.text}</Text>
+                  <Link href={link.text} style={projectStyles.link}>
+                    {link.text}
+                  </Link>
+                  {details.map((detail) => {
+                    return (
+                      <View style={global.detail} key={detail.id}>
+                        <Text style={global.bullet}>•</Text>
+                        <Text>{detail.text}</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
           </>
           {/* Technical Category */}
           <>

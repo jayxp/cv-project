@@ -7,6 +7,8 @@ export default function useHelper(props) {
 
   const handleChange = (event) => {
     setEntry((prevState) => {
+      // Handleconsole.log(event.target);
+      // console.log(prevState);
       return {
         ...prevState,
         [event.target.name]: {

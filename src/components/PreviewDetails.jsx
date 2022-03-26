@@ -1,9 +1,7 @@
 import React from "react";
 import StyledButton from "../styles/Button.styled";
 
-export default function PreviewDetails(props) {
-  const { entry, deleteDetail } = props;
-
+export default function PreviewDetails({ entry, deleteDetail }) {
   return (
     <ul>
       {entry.details.length > 0 &&

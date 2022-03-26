@@ -25,22 +25,31 @@ const theme = {
 };
 
 export default function App() {
+  /* Re-renders constantly, feels extremely inefficient.
+     Has to be a better way to do this than multiple state declarations.
+  */
+  const contactState = useHelper({ ...contactData });
+  const educationState = useHelper({ ...educationData });
+  const employmentState = useHelper({ ...employmentData });
+  const projectState = useHelper({ ...projectData });
+  const technicalState = useHelper({ ...technicalData });
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Header />
       <StyledResume>
-        <ContactCategory data={contactData} />
-        <EducationCategory data={educationData} />
-        <EmploymentCategory data={employmentData} />
-        <ProjectCategory data={projectData} />
-        <TechnicalCategory data={technicalData} />
+        <ContactCategory data={contactState} />
+        <EducationCategory data={educationState} />
+        <EmploymentCategory data={employmentState} />
+        <ProjectCategory data={projectState} />
+        <TechnicalCategory data={technicalState} />
         <BasicDocument
-          contact={contactData}
-          education={educationData}
-          employment={employmentData}
-          project={projectData}
-          technical={technicalData}
+          contact={contactState.entry}
+          education={educationState.list}
+          employment={employmentState.list}
+          project={projectState.list}
+          technical={technicalState.entry}
         />
       </StyledResume>
       <Footer />

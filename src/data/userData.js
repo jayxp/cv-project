@@ -174,10 +174,19 @@ const technicalData = {
   },
 };
 
+const userData = {
+  contactData,
+  educationData,
+  employmentData,
+  projectData,
+  technicalData,
+};
+
 export {
   contactData,
   educationData,
   employmentData,
   projectData,
   technicalData,
+  userData,
 };
