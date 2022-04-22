@@ -1,5 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import GlobalStyle from "./styles/Global";
 import Header from "./components/Header";
 import ContactCategory from "./components/ContactCategory";
@@ -18,6 +19,7 @@ import {
 } from "./data/userData";
 import StyledResume from "./styles/Resume.styled";
 import useHelper from "./utils/useHelper";
+import StyledButton from "./styles/Button.styled";
 
 const theme = {
   mobile: "768px",
@@ -44,13 +46,24 @@ export default function App() {
         <EmploymentCategory data={employmentState} />
         <ProjectCategory data={projectState} />
         <TechnicalCategory data={technicalState} />
-        <BasicDocument
-          contact={contactState.entry}
-          education={educationState.list}
-          employment={employmentState.list}
-          project={projectState.list}
-          technical={technicalState.entry}
-        />
+        <PDFDownloadLink
+          document={
+            <BasicDocument
+              contact={contactState.list}
+              education={educationState.list}
+              employment={employmentState.list}
+              project={projectState.list}
+              technical={technicalState.list}
+            />
+          }
+          fileName="genResume.pdf"
+        >
+          {({ loading }) => (
+            <StyledButton color="#2cb30e">
+              {loading ? "Generating PDF" : "Download PDF"}
+            </StyledButton>
+          )}
+        </PDFDownloadLink>
       </StyledResume>
       <Footer />
     </ThemeProvider>

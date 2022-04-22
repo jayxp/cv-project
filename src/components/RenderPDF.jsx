@@ -6,7 +6,6 @@ import {
   Link,
   View,
   StyleSheet,
-  PDFViewer,
 } from "@react-pdf/renderer";
 import convertDate from "../utils/convertDate";
 
@@ -92,16 +91,18 @@ const educationStyles = StyleSheet.create({
     flex: 0.4,
     fontFamily: "Times-Bold",
     right: -0,
-    // The positioning in this PDF is jank, I give up!
+    // Styling this PDF is genuinely awful
     position: "absolute",
   },
   degree: {
-    paddingBottom: 10,
+    paddingBottom: 7.5,
     textAlign: "center",
   },
 });
 
 const employmentStyles = StyleSheet.create({
+  marginBottom: 5,
+
   job: {
     flex: 0.4,
     fontFamily: "Times-Bold",
@@ -111,6 +112,7 @@ const employmentStyles = StyleSheet.create({
     flex: 1,
     fontFamily: "Times-Bold",
     textAlign: "center",
+    paddingBottom: 15,
   },
   date: {
     flex: 0.4,
@@ -119,14 +121,14 @@ const employmentStyles = StyleSheet.create({
     position: "absolute",
   },
   detail: {
-    top: 14,
+    /* top: 14,
     paddingTop: 3,
-    left: 25,
+    left: 25, */
   },
   bullet: {
-    position: "absolute",
+    /* position: "absolute",
     left: 13,
-    top: 17,
+    top: 17, */
   },
 });
 
@@ -165,120 +167,124 @@ const BasicDocument = ({
   technical,
 }) => {
   return (
-    <PDFViewer style={global.viewer} showToolbar="false">
-      {/* Start of the document */}
-      <Document>
-        {/* FYI: Make a general styles object */}
-        <Page size="A4" style={global.body}>
-          {/* Contact Category */}
-          <>
-            <View style={global.section}>
-              <Text style={contactStyles.email}>{contact.email.text}</Text>
-              <Text style={contactStyles.name}>{contact.name.text}</Text>
-              <Text style={contactStyles.github}>
-                Github: {contact.github.text}
-              </Text>
-            </View>
-            <View style={global.section}>
-              <Text style={contactStyles.phone}>{contact.phone.text}</Text>
-              <Text style={contactStyles.website}>{contact.website.text}</Text>
-              <Text style={contactStyles.linkedin}>
-                LinkedIn: {contact.linkedin.text}
-              </Text>
-            </View>
-          </>
-          {/* Education Category */}
-          <>
-            <Text style={global.header}>Education</Text>
-            {education.map((entry) => {
-              const { id, location, college, dateFrom, dateTo, degree } = entry;
-              return (
-                <View key={id}>
-                  <View style={educationStyles}>
-                    <Text style={educationStyles.location}>
-                      {location.text}
-                    </Text>
-                    <Text style={educationStyles.college}>{college.text}</Text>
-                    <Text style={educationStyles.date}>
-                      {convertDate(dateFrom.text)}
-                      {" - "}
-                      {convertDate(dateTo.text)}
-                    </Text>
-                  </View>
-                  <Text style={educationStyles.degree}>
-                    {"\n"}
-                    {degree.text}
+    <Document>
+      {/* FYI: Make a general styles object */}
+      <Page size="A4" style={global.body}>
+        {/* Contact Category */}
+        <>
+          {contact.map((entry) => {
+            const { id, email, phone, name, website, github, linkedin } = entry;
+            return (
+              <View key={id}>
+                <View style={global.section}>
+                  <Text style={contactStyles.email}>{email.text}</Text>
+                  <Text style={contactStyles.name}>{name.text}</Text>
+                  <Text style={contactStyles.github}>
+                    Github: {github.text}
                   </Text>
                 </View>
-              );
-            })}
-          </>
-          {/* Employment Category */}
-          <>
-            <Text style={global.header}>Employment</Text>
-            {employment.map((entry) => {
-              const { id, job, company, dateFrom, dateTo, details } = entry;
-              return (
-                <View style={employmentStyles} key={id}>
-                  <Text style={employmentStyles.job}>{job.text}</Text>
-                  <Text style={employmentStyles.company}>
-                    {company.text}
-                    {"\n"}
+                <View style={global.section}>
+                  <Text style={contactStyles.phone}>{phone.text}</Text>
+                  <Text style={contactStyles.website}>{website.text}</Text>
+                  <Text style={contactStyles.linkedin}>
+                    LinkedIn: {linkedin.text}
                   </Text>
-                  <Text style={employmentStyles.date}>
-                    {convertDate(dateFrom.text)} - {convertDate(dateTo.text)}
+                </View>
+              </View>
+            );
+          })}
+        </>
+        {/* Education Category */}
+        <>
+          <Text style={global.header}>Education</Text>
+          {education.map((entry) => {
+            const { id, location, college, dateFrom, dateTo, degree } = entry;
+            return (
+              <View key={id}>
+                <View style={educationStyles}>
+                  <Text style={educationStyles.location}>{location.text}</Text>
+                  <Text style={educationStyles.college}>{college.text}</Text>
+                  <Text style={educationStyles.date}>
+                    {convertDate(dateFrom.text)}
+                    {" - "}
+                    {convertDate(dateTo.text)}
                   </Text>
-                  {details.map((detail) => {
-                    return (
-                      <View key={detail.id}>
-                        <Text style={employmentStyles.bullet}>{"\n"}•</Text>
-                        <Text>{detail.text}</Text>
-                      </View>
-                    );
-                  })}
                 </View>
-              );
-            })}
-          </>
-          {/* Project Category */}
-          <>
-            <Text style={global.header}>Projects</Text>
-            {project.map((entry) => {
-              const { id, pName, link, details } = entry;
-              return (
-                <View style={projectStyles} key={id}>
-                  <Text style={projectStyles.pName}>{pName.text}</Text>
-                  <Link href={link.text} style={projectStyles.link}>
-                    {link.text}
-                  </Link>
-                  {details.map((detail) => {
-                    return (
-                      <View style={global.detail} key={detail.id}>
-                        <Text style={global.bullet}>•</Text>
-                        <Text>{detail.text}</Text>
-                      </View>
-                    );
-                  })}
-                </View>
-              );
-            })}
-          </>
-          {/* Technical Category */}
-          <>
-            <Text style={global.header}>Technical Skills</Text>
-            <Text style={technicalStyles.languages}>
-              Languages: {technical.languages.text}
-            </Text>
-            <Text style={technicalStyles.frameLibs}>
-              Framework and Libraries: {technical.frameLibs.text}
-            </Text>
-            <Text style={technicalStyles.tools}>
-              Tools: {technical.tools.text}
-            </Text>
-          </>
-        </Page>
-      </Document>
-    </PDFViewer>
+                <Text style={educationStyles.degree}>
+                  {"\n"}
+                  {degree.text}
+                </Text>
+              </View>
+            );
+          })}
+        </>
+        {/* Employment Category */}
+        <>
+          <Text style={global.header}>Employment</Text>
+          {employment.map((entry) => {
+            const { id, job, company, dateFrom, dateTo, details } = entry;
+            return (
+              <View style={employmentStyles} key={id}>
+                <Text style={employmentStyles.job}>{job.text}</Text>
+                <Text style={employmentStyles.company}>{company.text}</Text>
+                <Text style={employmentStyles.date}>
+                  {convertDate(dateFrom.text)} - {convertDate(dateTo.text)}
+                </Text>
+                {details.map((detail) => {
+                  return (
+                    <View style={global.detail} key={detail.id}>
+                      <Text style={global.bullet}>•</Text>
+                      <Text>{detail.text}</Text>
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          })}
+        </>
+        {/* Project Category */}
+        <>
+          <Text style={global.header}>Projects</Text>
+          {project.map((entry) => {
+            const { id, pName, link, details } = entry;
+            return (
+              <View style={projectStyles} key={id}>
+                <Text style={projectStyles.pName}>{pName.text}</Text>
+                <Link href={link.text} style={projectStyles.link}>
+                  {link.text}
+                </Link>
+                {details.map((detail) => {
+                  return (
+                    <View style={global.detail} key={detail.id}>
+                      <Text style={global.bullet}>•</Text>
+                      <Text>{detail.text}</Text>
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          })}
+        </>
+        {/* Technical Category */}
+        <>
+          <Text style={global.header}>Technical Skills</Text>
+          {technical.map((entry) => {
+            const { id, languages, frameLibs, tools } = entry;
+            return (
+              <View key={id}>
+                <Text style={technicalStyles.languages}>
+                  Languages: {languages.text}
+                </Text>
+                <Text style={technicalStyles.frameLibs}>
+                  Framework and Libraries: {frameLibs.text}
+                </Text>
+                <Text style={technicalStyles.tools}>Tools: {tools.text}</Text>
+              </View>
+            );
+          })}
+        </>
+      </Page>
+    </Document>
   );
 };
 

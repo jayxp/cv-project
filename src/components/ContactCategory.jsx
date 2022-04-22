@@ -6,7 +6,7 @@ import StyledButton from "../styles/Button.styled";
 import { Category } from "../styles/Categories.styled";
 
 export default function ContactCategory({ data }) {
-  const { entry, list, handleSubmit, handleChange } = data;
+  const { entry, list, handleSubmit, handleChange, deleteList } = data;
   const { email, phone, name, website, github, linkedin } = entry;
 
   return (
@@ -19,7 +19,9 @@ export default function ContactCategory({ data }) {
         <Input data={website} onChange={handleChange} />
         <Input data={github} onChange={handleChange} />
         <Input data={linkedin} onChange={handleChange} />
-        <StyledButton type="submit">Submit</StyledButton>
+        <StyledButton type="submit" onClick={() => deleteList(list)}>
+          Submit
+        </StyledButton>
       </StyledForm>
       <ContactList list={list} />
     </Category>

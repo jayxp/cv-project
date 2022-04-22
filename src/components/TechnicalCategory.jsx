@@ -6,7 +6,7 @@ import StyledButton from "../styles/Button.styled";
 import { Category } from "../styles/Categories.styled";
 
 export default function TechnicalCategory({ data }) {
-  const { entry, list, handleChange, handleSubmit } = data;
+  const { entry, list, handleChange, handleSubmit, deleteList } = data;
   const { languages, frameLibs, tools } = entry;
 
   return (
@@ -17,7 +17,9 @@ export default function TechnicalCategory({ data }) {
         <Input data={languages} onChange={handleChange} />
         <Input data={frameLibs} onChange={handleChange} />
         <Input data={tools} onChange={handleChange} />
-        <StyledButton type="submit">Submit</StyledButton>
+        <StyledButton type="submit" onClick={() => deleteList(list)}>
+          Submit
+        </StyledButton>
       </StyledForm>
       <TechnicalList list={list} />
     </Category>

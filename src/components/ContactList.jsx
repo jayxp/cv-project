@@ -2,19 +2,21 @@ import React from "react";
 import { Contact } from "../styles/Categories.styled";
 
 export default function HeaderList({ list }) {
-  const { email, phone, name, website, github, linkedin } = list;
-
   return (
-    list.display === true && (
-      <Contact>
-        <p className="email">{email.text}</p>
-        <p className="phone">{phone.text}</p>
-        <p className="name">{name.text}</p>
-        <p className="site">{website.text}</p>
-        <p className="github">GitHub: {github.text}</p>
-        <p className="linkedin">LinkedIn: {linkedin.text}</p>
-      </Contact>
-    )
+    list.length > 0 &&
+    list.map((entry) => {
+      const { id, email, phone, name, website, github, linkedin } = entry;
+      return (
+        <Contact key={id}>
+          <p className="email">{email.text}</p>
+          <p className="phone">{phone.text}</p>
+          <p className="name">{name.text}</p>
+          <p className="site">{website.text}</p>
+          <p className="github">GitHub: {github.text}</p>
+          <p className="linkedin">LinkedIn: {linkedin.text}</p>
+        </Contact>
+      );
+    })
   );
 }
 

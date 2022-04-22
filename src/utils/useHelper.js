@@ -21,22 +21,15 @@ export default function useHelper(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setList({
-      display: true,
-      ...entry,
-    });
-    setEntry({
-      ...props,
-    });
-  };
-
-  const handleSubmitExt = (event) => {
-    event.preventDefault();
     setList(list.concat(entry));
     setEntry({
       ...props,
       id: uniqid(),
     });
+  };
+
+  const deleteList = () => {
+    setList([]);
   };
 
   const deleteEntry = (prop) => {
@@ -74,8 +67,8 @@ export default function useHelper(props) {
     deleteEntry,
     addDetail,
     deleteDetail,
+    deleteList,
     handleSubmit,
-    handleSubmitExt,
     handleChange,
   };
 }

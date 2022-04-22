@@ -6,14 +6,14 @@ import StyledButton from "../styles/Button.styled";
 import { Category } from "../styles/Categories.styled";
 
 export default function EducationCategory({ data }) {
-  const { entry, list, handleSubmitExt, handleChange, deleteEntry } = data;
+  const { entry, list, handleSubmit, handleChange, deleteEntry } = data;
   const { location, college, dateFrom, dateTo, degree } = entry;
 
   return (
     <Category>
       <h2>Education</h2>
       <hr />
-      <StyledForm onSubmit={handleSubmitExt}>
+      <StyledForm onSubmit={handleSubmit}>
         <Input data={location} onChange={handleChange} />
         <Input data={college} onChange={handleChange} />
         <Input data={dateFrom} onChange={handleChange} />

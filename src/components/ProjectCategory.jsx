@@ -10,7 +10,7 @@ export default function ProjectCategory({ data }) {
   const {
     entry,
     list,
-    handleSubmitExt,
+    handleSubmit,
     handleChange,
     addDetail,
     deleteDetail,
@@ -22,7 +22,7 @@ export default function ProjectCategory({ data }) {
     <Category>
       <h2>Projects</h2>
       <hr />
-      <StyledForm onSubmit={handleSubmitExt}>
+      <StyledForm onSubmit={handleSubmit}>
         <Input data={pName} onChange={handleChange} required />
         <Input data={link} onChange={handleChange} />
         <Input data={detailInput} onChange={handleChange} />

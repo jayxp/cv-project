@@ -10,7 +10,7 @@ export default function EmploymentCategory({ data }) {
   const {
     entry,
     list,
-    handleSubmitExt,
+    handleSubmit,
     handleChange,
     addDetail,
     deleteDetail,
@@ -46,7 +46,7 @@ export default function EmploymentCategory({ data }) {
     <Category>
       <h2>Employment</h2>
       <hr />
-      <StyledForm name="employForm" onSubmit={handleSubmitExt}>
+      <StyledForm name="employForm" onSubmit={handleSubmit}>
         <Input data={job} onChange={handleChange} />
         <Input data={company} onChange={handleChange} />
         <Input data={dateFrom} onChange={handleChange} />

@@ -1,6 +1,7 @@
 import uniqid from "uniqid";
 
 const contactData = {
+  id: uniqid(),
   email: {
     text: "firstlast@mail.com",
     name: "email",
@@ -151,6 +152,7 @@ const projectData = {
 };
 
 const technicalData = {
+  id: uniqid(),
   languages: {
     text: "HTML, CSS, JavaScript, SQL, Python",
     name: "languages",
