@@ -13,7 +13,7 @@ export const Category = styled.section`
   }
 `;
 
-export const Contact = styled.article`
+export const Contact = styled.address`
   align-items: end;
   display: grid;
   grid-template-areas:

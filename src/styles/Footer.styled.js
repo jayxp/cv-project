@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   background-color: #e0e0e0;
-  border-top: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;

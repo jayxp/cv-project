@@ -20,6 +20,7 @@ import {
 import StyledResume from "./styles/Resume.styled";
 import useHelper from "./utils/useHelper";
 import StyledButton from "./styles/Button.styled";
+import ExampleCV from "./components/ExampleCV";
 
 const theme = {
   mobile: "768px",
@@ -46,6 +47,13 @@ export default function App() {
         <EmploymentCategory data={employmentState} />
         <ProjectCategory data={projectState} />
         <TechnicalCategory data={technicalState} />
+        <ExampleCV
+          contact={contactState}
+          education={educationState}
+          employment={employmentState}
+          project={projectState}
+          technical={technicalState}
+        />
         <PDFDownloadLink
           document={
             <BasicDocument
@@ -59,7 +67,7 @@ export default function App() {
           fileName="genResume.pdf"
         >
           {({ loading }) => (
-            <StyledButton color="#2cb30e">
+            <StyledButton color="#2cb30e" top="0px">
               {loading ? "Generating PDF" : "Download PDF"}
             </StyledButton>
           )}
